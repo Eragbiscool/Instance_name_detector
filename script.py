@@ -17,7 +17,8 @@ filelist = []
 
 
 
-provide_filelist_path='!!!put your filelist here!!!'
+provide_filelist_path='***Enter your filelist path here***'
+
 
 def file_open(filelist_path):
     global filelist_lines
@@ -81,6 +82,7 @@ def instance_count(Lines,module_list,findtop):
         for line in Lines:
             if(re.findall("^.*module\s+"+i,line)):
                 module = i
+                # print(module)
                 break
 
 
@@ -255,9 +257,12 @@ def lib_finder(Lines,lib_files):
                 lib_files["others"].append(j)
                 
             elif(counter>1 & spec_counter > 1):
+                # print("Lib file path: "+j)
+                # lib_files.insert(0,j)
                 lib_files["lib"].append(j)
 
             else:
+                # print("These files maybe package or other non essential files: "+j)
                 filelist = open('new_filelist.txt',"a")
                 filelist.write(j+'\n')
                 filelist.close()
@@ -278,6 +283,7 @@ file_process(filelist_lines,new_filelist)
 
 findtop_json = json.dumps(findtop,indent=4)
 
+# print(findtop_json)
 
 
 write_file = open('module_instance_report.json',"w")
